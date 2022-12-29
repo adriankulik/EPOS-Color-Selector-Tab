@@ -7,27 +7,39 @@ function App() {
   const [range, setRange] = useState(100);
   const [color1, setColor1] = useState("#000000");
   const [color2, setColor2] = useState("#ffffff");
-  // canvas (gradient preview code)
-  const canvasRef = useRef(null);
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const context = canvas.getContext("2d");
-    canvas.width = 300;
-    canvas.height = 50;
-    let gradient = context.createLinearGradient(0, 0, 200, 0);
-    gradient.addColorStop(0, color1);
-    gradient.addColorStop(1, color2);
-    context.fillStyle = gradient;
-    context.globalAlpha = opacity / 100;
-    context.fillRect(0, 0, context.canvas.width, context.canvas.height);
-  });
+  const [dataType, setDataType] = useState("NDVI");
+  const [colorScheme, setColorScheme] = useState(
+    "linear-gradient(to right, #1e9600 0%, #fff200 50%, #ff0000 100%)"
+  );
 
   return (
     <div className="app">
       <h1>Color input</h1>
-      <canvas ref={canvasRef} />
+      <div>
+        {colorScheme === "Custom" ? (
+          <div
+            id="CustomPreview"
+            style={{
+              width: "300px",
+              height: "50px",
+              background: `linear-gradient(to right,  ${color1} 0%,${color2} 100%)`,
+              opacity: `${opacity / 100}`,
+            }}
+          ></div>
+        ) : (
+          <div
+            id="PredefinedPreview"
+            style={{
+              width: "300px",
+              height: "50px",
+              background: `${colorScheme}`,
+              opacity: `${opacity / 100}`,
+            }}
+          ></div>
+        )}
+      </div>
       <hr></hr>
-      <p>Opacity: {opacity}</p>
+      <h2>Display options</h2>
       <input
         type="range"
         min="0"
@@ -44,18 +56,48 @@ function App() {
         onChange={(e) => setRange(e.target.value)}
       />
       <hr></hr>
-      <p>min</p>
-      <input
-        type="color"
-        defaultValue={color1}
-        onChange={(e) => setColor1(e.target.value)}
-      />
-      <p>max</p>
-      <input
-        type="color"
-        defaultValue={color2}
-        onChange={(e) => setColor2(e.target.value)}
-      />
+      <h2>Data type</h2>
+      <select value={dataType} onChange={(e) => setDataType(e.target.value)}>
+        <option value="NDVI">NDVI</option>
+        <option value="Option #2">Option #2</option>
+        <option value="Option #3">Option #3</option>
+      </select>
+      <hr></hr>
+      <h2>Color scheme options</h2>
+      <select
+        value={colorScheme}
+        onChange={(e) => setColorScheme(e.target.value)}
+      >
+        <option value="linear-gradient(to right, #1e9600 0%, #fff200 50%, #ff0000 100%)">
+          Red-Yellow-Green
+        </option>
+        <option value="linear-gradient(90deg, rgba(89, 131, 252, 1) 0%, rgba(41, 53, 86, 1) 33%, rgba(252, 89, 204, 1) 66%, rgba(0, 8, 24, 1) 100%)">
+          Some other scheme
+        </option>
+        <option value="Custom">Custom</option>
+      </select>
+      <hr></hr>
+      <div>
+        {colorScheme === "Custom" ? (
+          <div>
+            <h2>Pick your own color scheme</h2>
+            <p>Minimal value</p>
+            <input
+              type="color"
+              defaultValue={color1}
+              onChange={(e) => setColor1(e.target.value)}
+            />
+            <p>Maximal value</p>
+            <input
+              type="color"
+              defaultValue={color2}
+              onChange={(e) => setColor2(e.target.value)}
+            />
+          </div>
+        ) : (
+          <></>
+        )}
+      </div>
     </div>
   );
 }
