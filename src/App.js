@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useState } from "react";
 // may use MultiRangeSlider in the future. Created by developergovindgupta. Licensed under the ISC license: https://opensource.org/licenses/ISC
 
 function App() {
