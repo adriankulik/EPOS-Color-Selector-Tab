@@ -40,6 +40,7 @@ function App() {
       </div>
       <hr></hr>
       <h2>Display options</h2>
+      <p>Opacity: {opacity}</p>
       <input
         type="range"
         min="0"
