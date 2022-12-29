@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-// may use MultiRangeSlider. Created by developergovindgupta. Licensed under the ISC license: https://opensource.org/licenses/ISC
+// may use MultiRangeSlider in the future. Created by developergovindgupta. Licensed under the ISC license: https://opensource.org/licenses/ISC
 
 function App() {
   // states code
